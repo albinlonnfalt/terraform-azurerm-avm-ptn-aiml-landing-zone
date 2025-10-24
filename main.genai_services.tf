@@ -102,11 +102,12 @@ module "cosmosdb" {
 # removing for testing PE DNS zone strategy when platform flag is false
 
 module "storage_account" {
-  source  = "Azure/avm-res-storage-storageaccount/azurerm"
-  version = "0.6.3"
+  source = "github.com/Azure/terraform-azurerm-avm-res-storage-storageaccount"
+  #version = "0.6.4"
   count   = var.genai_storage_account_definition.deploy ? 1 : 0
 
   location                 = azurerm_resource_group.this.location
+  local_user_enabled       = false
   name                     = local.genai_storage_account_name
   resource_group_name      = azurerm_resource_group.this.name
   access_tier              = var.genai_storage_account_definition.access_tier
